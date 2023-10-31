@@ -1,4 +1,5 @@
 playerCount = 1;
+victoryValue = 0;
 
 // gameBoard object module
 const gameBoard = (function() {
@@ -25,19 +26,58 @@ function User(name,symbol) {
 
 
 // gameController object
-function gameController() {
+const gameController = (function() {
     function startGame() {
-        let boardArray = gameBoard.resetBoard()
+        let boardArray = gameBoard.resetBoard();
         return boardArray;
-    }
-}
+    };
+
+    function checkVictory() {
+        let boardArray = gameBoard.boardArray;
+        if(boardArray[0] === boardArray[1] && boardArray[1] === boardArray[2] && boardArray[0] !== '') {
+            console.log("Victory");
+            victoryValue += 1;
+        }
+        else if(boardArray[0] === boardArray[3] && boardArray[3] === boardArray[6] && boardArray[0] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
+        else if(boardArray[6] === boardArray[7] && boardArray[7] === boardArray[8] && boardArray[6] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
+        else if(boardArray[2] === boardArray[5] && boardArray[5 ]=== boardArray[8] && boardArray[2] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
+        else if(boardArray[0] === boardArray[4] && boardArray[4] === boardArray[8] && boardArray[0] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
+        else if(boardArray[2] === boardArray[4] && boardArray[4] === boardArray[6] && boardArray[2] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
+    };
+
+    function checkDraw() {
+        let boardArray = gameBoard.boardArray;
+        if(victoryValue == 0){
+            if(!boardArray.includes("")){
+                console.log("Draw");
+            }
+        }
+    };
+    return {startGame, checkVictory, checkDraw};
+}  
+)();
 
 
 
 
 // displayController object
 // render tic tac toe grid onto webpage
-const  displayController = (function() {
+const displayController = (function() {
     function displayBoard() {
         let boardContainer = document.querySelector('.boardContainer');
         let squareNum = 1;
@@ -179,6 +219,8 @@ const  displayController = (function() {
                     }
                 }
                 console.log(gameBoard.boardArray);
+                gameController.checkVictory();
+                gameController.checkDraw();
             });
             boardContainer.appendChild(grid);
             squareNum++;

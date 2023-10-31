@@ -15,12 +15,14 @@ body {
     justify-content: center;
 }
 
-/* .boardContainer {
-    display: grid;
-    grid-template: 1fr 1fr 1fr/ 1fr 1fr 1fr;
-} */
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .boardContainer {
+    flex: 1;
     max-height: 200px;
     max-width: 200px;
     padding: 20px;
