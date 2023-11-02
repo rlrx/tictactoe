@@ -41,34 +41,42 @@ const gameController = (function() {
         let boardArray = gameBoard.boardArray;
         if(boardArray[0] === boardArray[1] && boardArray[1] === boardArray[2] && boardArray[0] !== '') {
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[0] === boardArray[3] && boardArray[3] === boardArray[6] && boardArray[0] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[6] === boardArray[7] && boardArray[7] === boardArray[8] && boardArray[6] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[2] === boardArray[5] && boardArray[5 ]=== boardArray[8] && boardArray[2] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[0] === boardArray[4] && boardArray[4] === boardArray[8] && boardArray[0] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[2] === boardArray[4] && boardArray[4] === boardArray[6] && boardArray[2] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[1] === boardArray[4] && boardArray[4] === boardArray[7] && boardArray[1] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
         else if(boardArray[3] === boardArray[4] && boardArray[4] === boardArray[5] && boardArray[3] !== ''){
             console.log("Victory");
+            displayController.displayVictory();
             victoryValue += 1;
         }
     };
@@ -78,6 +86,7 @@ const gameController = (function() {
         if(victoryValue == 0){
             if(!boardArray.includes("")){
                 console.log("Draw");
+                displayController.displayDraw();
             }
         }
     };
@@ -86,11 +95,19 @@ const gameController = (function() {
 )();
 
 
-
-
 // displayController object
 // render tic tac toe grid onto webpage
 const displayController = (function() {
+    function displayVictory() {
+        let victoryDialog = document.querySelector('.victoryDialog');
+        victoryDialog.showModal();
+    }
+
+    function displayDraw() {
+        let drawDialog = document.querySelector('.drawDialog');
+        drawDialog.showModal();
+    }
+
     function displayPlayer() {
         let formData = new FormData(document.forms.playerForm);
         let player1 = formData.get('player1');
@@ -273,7 +290,7 @@ const displayController = (function() {
             squareNum++;
         }
     };
-    return {displayBoard, displayPlayer};
+    return {displayBoard, displayPlayer, displayVictory, displayDraw};
 })();
 
 
@@ -281,10 +298,10 @@ const restartButton = document.querySelector('.restartButton');
 restartButton.addEventListener('click', gameController.startGame);
 
 // Handle new game button to display player registration
-const dialog = document.querySelector('dialog');
+const formDialog = document.querySelector('.formDialog');
 const newGameButton = document.querySelector('.newGameButton');
 newGameButton.addEventListener('click', () => {
-    dialog.showModal();
+    formDialog.showModal();
 });
 
 // Handle submit button
@@ -298,7 +315,7 @@ submit.addEventListener('click', (event) => {
     let player2 = formData.get('player2');
     let nameTag = document.querySelector('.nameList');
     nameTag.textContent = `${player1}'s Turn`;
-    dialog.close();
+    formDialog.close();
     // dialog.style.display = 'none'; // closes the form after pressing the submit button
 });
 
