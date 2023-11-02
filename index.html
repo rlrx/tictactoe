@@ -10,21 +10,24 @@
 <body>
     <div class="header">
         <h1>Tic Tac Toe</h1>
-        <button class="newgameButton">New Game</button>
+        <button class="newGameButton">New Game</button>
+        <button class="restartButton">Restart</button>
     </div>
     <div class="body">
+        <div class='nameList'></div>
         <div class="boardContainer"></div>
         <dialog>
             <h2>Key In Player Details</h2>
             <form name="playerForm">
                 <div>
-                    <label for="player1">Player 1</label>
+                    <label for="player1">Player 1 (O)</label>
                     <input type="text" id="player1" name="player1">
                 </div>
                 <div>
-                    <label for="player2">Player 2</label>
+                    <label for="player2">Player 2 (X)</label>
                     <input type="text" id="player2" name="player2">
                 </div>
+                <button class="submit">Submit</button>
             </form>
         </dialog>
     </div>

@@ -10,20 +10,19 @@ body {
     justify-content: space-between;
 }
 
-.footer {
-    display: flex;
-    justify-content: center;
-}
-
 .body {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
 .boardContainer {
     flex: 1;
-    max-height: 200px;
     max-width: 200px;
     padding: 20px;
     display: grid;
@@ -85,4 +84,10 @@ body {
 .grid9 {
     grid-row: 3/4;
     grid-column: 3/4;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }

@@ -28,8 +28,13 @@ function User(name,symbol) {
 // gameController object
 const gameController = (function() {
     function startGame() {
-        let boardArray = gameBoard.resetBoard();
-        return boardArray;
+        console.log('start game');
+        // resetting the board array
+        gameBoard.boardArray = gameBoard.resetBoard();
+        let grids = document.querySelectorAll('.grid');
+        grids.forEach((grid) => {
+            grid.textContent = '';
+        });
     };
 
     function checkVictory() {
@@ -58,6 +63,14 @@ const gameController = (function() {
             console.log("Victory");
             victoryValue += 1;
         }
+        else if(boardArray[1] === boardArray[4] && boardArray[4] === boardArray[7] && boardArray[1] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
+        else if(boardArray[3] === boardArray[4] && boardArray[4] === boardArray[5] && boardArray[3] !== ''){
+            console.log("Victory");
+            victoryValue += 1;
+        }
     };
 
     function checkDraw() {
@@ -78,6 +91,21 @@ const gameController = (function() {
 // displayController object
 // render tic tac toe grid onto webpage
 const displayController = (function() {
+    function displayPlayer() {
+        let formData = new FormData(document.forms.playerForm);
+        let player1 = formData.get('player1');
+        let player2 = formData.get('player2');
+        console.log(player1);
+        console.log(player2);
+        let nameTag = document.querySelector('.nameList');
+        if(playerCount % 2 == 0){
+            nameTag.textContent = `${player2}'s Turn`;
+        }
+        else{
+            nameTag.textContent = `${player1}'s Turn`;
+        }
+    };
+
     function displayBoard() {
         let boardContainer = document.querySelector('.boardContainer');
         let squareNum = 1;
@@ -86,6 +114,7 @@ const displayController = (function() {
             grid.classList.add('grid', `grid${squareNum}`);
             grid.textContent = '';
             grid.addEventListener('click', (event) => {
+                console.log("Grid clicked");
                 // get the clicked element
                 const clickedGrid = event.target;
 
@@ -98,11 +127,13 @@ const displayController = (function() {
                             gameBoard.boardArray[0] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[0] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -112,11 +143,13 @@ const displayController = (function() {
                             gameBoard.boardArray[1] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[1] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -126,11 +159,13 @@ const displayController = (function() {
                             gameBoard.boardArray[2] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[2] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -140,11 +175,13 @@ const displayController = (function() {
                             gameBoard.boardArray[3] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[3] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -154,11 +191,13 @@ const displayController = (function() {
                             gameBoard.boardArray[4] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[4] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -168,11 +207,13 @@ const displayController = (function() {
                             gameBoard.boardArray[5] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[5] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -182,11 +223,13 @@ const displayController = (function() {
                             gameBoard.boardArray[6] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[6] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -196,11 +239,13 @@ const displayController = (function() {
                             gameBoard.boardArray[7] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[7] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -210,11 +255,13 @@ const displayController = (function() {
                             gameBoard.boardArray[8] = 'X';
                             grid.textContent = 'X';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                         else {
                             gameBoard.boardArray[8] = 'O';
                             grid.textContent = 'O';
                             playerCount += 1;
+                            displayController.displayPlayer();
                         }
                     }
                 }
@@ -226,9 +273,33 @@ const displayController = (function() {
             squareNum++;
         }
     };
-    return {displayBoard};
+    return {displayBoard, displayPlayer};
 })();
 
+
+const restartButton = document.querySelector('.restartButton');
+restartButton.addEventListener('click', gameController.startGame);
+
+// Handle new game button to display player registration
+const dialog = document.querySelector('dialog');
+const newGameButton = document.querySelector('.newGameButton');
+newGameButton.addEventListener('click', () => {
+    dialog.showModal();
+});
+
+// Handle submit button
+const submit = document.querySelector('.submit');
+submit.addEventListener('click', (event) => {
+    console.log('submit clicked');
+    event.preventDefault();
+
+    let formData = new FormData(document.forms.playerForm);
+    let player1 = formData.get('player1');
+    let player2 = formData.get('player2');
+    let nameTag = document.querySelector('.nameList');
+    nameTag.textContent = `${player1}'s Turn`;
+    dialog.close();
+    // dialog.style.display = 'none'; // closes the form after pressing the submit button
+});
+
 displayController.displayBoard();
-
-
