@@ -1,5 +1,5 @@
 playerCount = 1;
-victoryValue = 0;
+victoryValue = false;
 
 // gameBoard object module
 const gameBoard = (function() {
@@ -42,48 +42,48 @@ const gameController = (function() {
         if(boardArray[0] === boardArray[1] && boardArray[1] === boardArray[2] && boardArray[0] !== '') {
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[0] === boardArray[3] && boardArray[3] === boardArray[6] && boardArray[0] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[6] === boardArray[7] && boardArray[7] === boardArray[8] && boardArray[6] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[2] === boardArray[5] && boardArray[5 ]=== boardArray[8] && boardArray[2] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[0] === boardArray[4] && boardArray[4] === boardArray[8] && boardArray[0] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[2] === boardArray[4] && boardArray[4] === boardArray[6] && boardArray[2] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[1] === boardArray[4] && boardArray[4] === boardArray[7] && boardArray[1] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
         else if(boardArray[3] === boardArray[4] && boardArray[4] === boardArray[5] && boardArray[3] !== ''){
             console.log("Victory");
             displayController.displayVictory();
-            victoryValue += 1;
+            victoryValue = true;
         }
     };
 
     function checkDraw() {
         let boardArray = gameBoard.boardArray;
-        if(victoryValue == 0){
+        if(victoryValue == false){
             if(!boardArray.includes("")){
                 console.log("Draw");
                 displayController.displayDraw();
@@ -293,9 +293,19 @@ const displayController = (function() {
     return {displayBoard, displayPlayer, displayVictory, displayDraw};
 })();
 
-
-const restartButton = document.querySelector('.restartButton');
-restartButton.addEventListener('click', gameController.startGame);
+const restartButtons = document.querySelectorAll('.restartButton');
+restartButtons.forEach((restartButton) => {
+    restartButton.addEventListener('click', gameController.startGame);
+    restartButton.addEventListener('click', () => {
+        victoryValue = false;
+        let victoryDialog = document.querySelector('.victoryDialog');
+        let drawDialog = document.querySelector('.drawDialog');
+        victoryDialog.close();
+        drawDialog.close();
+    })
+})
+// const restartButton = document.querySelector('.restartButton');
+// restartButton.addEventListener('click', gameController.startGame);
 
 // Handle new game button to display player registration
 const formDialog = document.querySelector('.formDialog');
